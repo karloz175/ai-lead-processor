@@ -1,0 +1,19 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Environment variables — NEVER commit this
+.env
+
+# Database file
+*.db
+
+# Node
+node_modules/
+dist/
+
+# VS Code
+.vscode/
