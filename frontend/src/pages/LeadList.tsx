@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchLeads } from "../api/leads";
 import type { Lead } from "../api/leads";
 import LeadCard from "../components/LeadCard";
+import LeadForm from "../components/LeadForm";
 
 export default function LeadList() {
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -14,6 +15,10 @@ export default function LeadList() {
       .catch(() => setError("Could not load leads. Is the backend running?"))
       .finally(() => setLoading(false));
   }, []);
+
+  function handleLeadCreated(newLead: Lead) {
+    setLeads((prev) => [newLead, ...prev]);
+  }
 
   if (loading) return <p style={{ padding: "32px" }}>Loading leads...</p>;
   if (error) return <p style={{ padding: "32px", color: "red" }}>{error}</p>;
@@ -28,8 +33,10 @@ export default function LeadList() {
         {leads.length} total leads · {hotLeads.length} hot · {coldLeads.length} cold
       </p>
 
+      <LeadForm onLeadCreated={handleLeadCreated} />
+
       {leads.length === 0 ? (
-        <p style={{ color: "#666" }}>No leads yet. Send a POST request to /leads/ to add one.</p>
+        <p style={{ color: "#666" }}>No leads yet. Add one using the form above.</p>
       ) : (
         <>
           {hotLeads.length > 0 && (

@@ -23,3 +23,23 @@ export async function fetchLead(id: number): Promise<Lead> {
   if (!response.ok) throw new Error("Lead not found");
   return response.json();
 }
+
+export type LeadCreate = {
+  name: string;
+  email: string;
+  company?: string;
+  message: string;
+}
+
+export async function createLead(data: LeadCreate): Promise<Lead> {
+  const response = await fetch(`${API_URL}/leads/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.detail?.[0]?.msg ?? "Failed to create lead");
+  }
+  return response.json();
+}
