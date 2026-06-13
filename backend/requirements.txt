@@ -3,6 +3,7 @@ uvicorn==0.30.6
 sqlalchemy==2.0.35
 pydantic==2.9.2
 pydantic-settings==2.5.2
-openai==1.51.0
+openai>=1.52.0
 python-dotenv==1.0.1
+email-validator==2.3.0
 python-telegram-bot==22.8
